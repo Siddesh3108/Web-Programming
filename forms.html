@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html ng-app="mentalHealthApp">
+<head>
+    <title>Mental Health Score</title>
+    <script src="angular.js"></script>
+    <style>
+        body {
+            background-color:lightpink; 
+            color: brown; 
+            font-family: 'Arial', sans-serif;
+        }
+        
+        form {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 60px;
+            background-color: lightseagreen;
+            border-radius: 8px;
+            
+        }
+        
+        p {
+            font-size: 18px;
+            color: black;
+        }
+        
+        label {
+            display: block;
+            margin-top: 10px;
+            color: black;
+        }
+        
+        .submit {
+            background-color: blue; 
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            
+            font-size: 16px;
+        }
+        
+        .submit:hover {
+            background-color: darkcyan; 
+        }
+        </style>  
+</head>
+<body>
+    <h1>Check Mental Health Score</h1>
+    <form id="myForm" ng-submit="calculateScore()" ng-controller="ScoreController">
+        <div>
+            <p>1. How well have you been able to focus on your daily tasks?</p>
+            <label for="q1a">Very well</label>
+            <input type="radio" id="q1a" name="q1" ng-model="scores.q1" value="4">
+            <br>
+            <label for="q1b">Moderately well</label>
+            <input type="radio" id="q1b" name="q1" ng-model="scores.q1" value="3">
+            <br>
+            <label for="q1c">Not at all</label>
+            <input type="radio" id="q1c" name="q1" ng-model="scores.q1" value="2">
+            <br>
+            <label for="q1d">I feel overwhelmed</label>
+            <input type="radio" id="q1d" name="q1" ng-model="scores.q1" value="1">
+            <br>
+            
+            <p>2. If you have been worried lately, have you experienced disturbed sleep because of it?</p>
+            <label for="q2a">I feel well-rested</label>
+            <input type="radio" id="q2a" name="q2" ng-model="scores.q2" value="4">
+            <br>
+            <label for="q2b">I sleep the desired amount the body needs</label>
+            <input type="radio" id="q2b" name="q2" ng-model="scores.q2" value="3">
+            <br>
+            <label for="q2c">I sleep less than usual</label>
+            <input type="radio" id="q2c" name="q2" ng-model="scores.q2" value="2">
+            <br>
+            <label for="q2d">I do not sleep well</label>
+            <input type="radio" id="q2d" name="q2" ng-model="scores.q2" value="1">
+            <br>
+
+            
+            <p>3. In your everyday activities/tasks, have you felt like you are playing a useful role?</p>
+            <label for="q3a">Yes, I feel satisfied</label>
+            <input type="radio" id="q3a" name="q3" ng-model="scores.q3" value="4">
+            <br>
+            <label for="q3b">Mostly yes</label>
+            <input type="radio" id="q3b" name="q3" ng-model="scores.q3" value="3">
+            <br>
+            <label for="q3c">Sometimes I doubt if I am being useful</label>
+            <input type="radio" id="q3c" name="q3" ng-model="scores.q3" value="2">
+            <br>
+            <label for="q3d">I feel like I am not adding any value to anything</label>
+            <input type="radio" id="q3d" name="q3" ng-model="scores.q3" value="1">
+            <br>
+
+            
+            <p>4. Have you ever felt like you were making capable decisions?</p>
+            <label for="q4a">Yes, almost every time</label>
+            <input type="radio" id="q4a" name="q4" ng-model="scores.q4" value="4">
+            <br>
+            <label for="q4b">Yes, sometimes</label>
+            <input type="radio" id="q4b" name="q4" ng-model="scores.q4" value="3">
+            <br>
+            <label for="q4c">Not too many times</label>
+            <input type="radio" id="q4c" name="q4" ng-model="scores.q4" value="2">
+            <br>
+            <label for="q4d">I rely on others to make my decisions as I feel incapable of taking any decisions</label>
+            <input type="radio" id="q4d" name="q4" ng-model="scores.q4" value="1">
+            <br>
+
+            
+            <p>5. How often do you feel stressed or tensed?</p>
+            <label for="q5a">Rarely</label>
+            <input type="radio" id="q5a" name="q5" ng-model="scores.q5" value="4">
+            <br>
+            <label for="q5b">Sometimes but I am able to manage</label>
+            <input type="radio" id="q5b" name="q5" ng-model="scores.q5" value="3">
+            <br>
+            <label for="q5c">More often than I should</label>
+            <input type="radio" id="q5c" name="q5" ng-model="scores.q5" value="2">
+            <br>
+            <label for="q5d">All the time</label>
+            <input type="radio" id="q5d" name="q5" ng-model="scores.q5" value="1">
+            <br>
+
+            
+            <p>6. Have you ever felt like you could not deal with your difficulties?</p>
+            <label for="q6a">Not at all</label>
+            <input type="radio" id="q6a" name="q6" ng-model="scores.q6" value="4">
+            <br>
+            <label for="q6b">Yes, but I am able to overcome the thought</label>
+            <input type="radio" id="q6b" name="q6" ng-model="scores.q6" value="3">
+            <br>
+            <label for="q6c">Sometimes</label>
+            <input type="radio" id="q6c" name="q6" ng-model="scores.q6" value="2">
+            <br>
+            <label for="q6d">All the time</label>
+            <input type="radio" id="q6d" name="q6" ng-model="scores.q6" value="1">
+            <br>
+
+            
+            <p>7. Have you been able to enjoy your daily tasks/activities?</p>
+            <label for="q7a">Yes, I am happy doing my tasks</label>
+            <input type="radio" id="q7a" name="q7" ng-model="scores.q7" value="4">
+            <br>
+            <label for="q7b">I am able to get through my tasks without any hiccups</label>
+            <input type="radio" id="q7b" name="q7" ng-model="scores.q7" value="3">
+            <br>
+            <label for="q7c">Not too much</label>
+            <input type="radio" id="q7c" name="q7" ng-model="scores.q7" value="2">
+            <br>
+            <label for="q7d">They feel like a burden to me</label>
+            <input type="radio" id="q7d" name="q7" ng-model="scores.q7" value="1">
+            <br>
+
+            <p>8. Have you been able to deal with your problems?</p>
+            <label for="q8a">Yes, with ease</label>
+            <input type="radio" id="q8a" name="q8" ng-model="scores.q8" value="4">
+            <br>
+            <label for="q8b">Yes, I am able to manage</label>
+            <input type="radio" id="q8b" name="q8" ng-model="scores.q8" value="3">
+            <br>
+            <label for="q8c">I need help on most days</label>
+            <input type="radio" id="q8c" name="q8" ng-model="scores.q8" value="2">
+            <br>
+            <label for="q8d">I am not able to deal with my problems</label>
+            <input type="radio" id="q8d" name="q8" ng-model="scores.q8" value="1">
+            <br>
+
+            
+            <p>9. Have you been feeling sad & depressed?</p>
+            <label for="q9a">Not at all</label>
+            <input type="radio" id="q9a" name="q9" ng-model="scores.q9" value="4">
+            <br>
+            <label for="q9b">Sometimes but I manage</label>
+            <input type="radio" id="q9b" name="q9" ng-model="scores.q9" value="3">
+            <br>
+            <label for="q9c">Most of the time</label>
+            <input type="radio" id="q9c" name="q9" ng-model="scores.q9" value="2">
+            <br>
+            <label for="q9d">All the time</label>
+            <input type="radio" id="q9d" name="q9" ng-model="scores.q9" value="1">
+            <br>
+
+            
+            <p>10. Have you ever felt like your confidence has reduced?</p>
+            <label for="q10a">Not really</label>
+            <input type="radio" id="q10a" name="q10" ng-model="scores.q10" value="4">
+            <br>
+            <label for="q10b">Sometimes but it does not affect me</label>
+            <input type="radio" id="q10b" name="q10" ng-model="scores.q10" value="3">
+            <br>
+            <label for="q10c">Most of the time</label>
+            <input type="radio" id="q10c" name="q10" ng-model="scores.q10" value="2">
+            <br>
+            <label for="q10d">All the time</label>
+            <input type="radio" id="q10d" name="q10" ng-model="scores.q10" value="1">
+            <br>
+
+            
+            <p>11. Are you getting thoughts that you are worthless?</p>
+            <label for="q11a">Not at all</label>
+            <input type="radio" id="q11a" name="q11" ng-model="scores.q11" value="4">
+            <br>
+            <label for="q11b">Very rarely</label>
+            <input type="radio" id="q11b" name="q11" ng-model="scores.q11" value="3">
+            <br>
+            <label for="q11c">Sometimes</label>
+            <input type="radio" id="q11c" name="q11" ng-model="scores.q11" value="2">
+            <br>
+            <label for="q11d">All the time</label>
+            <input type="radio" id="q11d" name="q11" ng-model="scores.q11" value="1">
+            <br>
+
+            
+            <p>12. Lately, have you been feeling reasonably content and happy?</p>
+            <label for="q12a">Yes, I am very content</label>
+            <input type="radio" id="q12a" name="q12" ng-model="scores.q12" value="4">
+            <br>
+            <label for="q12b">Overall, I am content but I have had bad days too</label>
+            <input type="radio" id="q12b" name="q12" ng-model="scores.q12" value="3">
+            <br>
+            <label for="q12c">It has been tough but I push through</label>
+            <input type="radio" id="q12c" name="q12" ng-model="scores.q12" value="2">
+            <br>
+            <label for="q12d">I find it hard to be happy</label>
+            <input type="radio" id="q12d" name="q12" ng-model="scores.q12" value="1">
+            <br>
+            
+        </div>
+        <button type="submit" class="submit">Submit</button>
+    </form>
+    <script>
+        angular.module('mentalHealthApp', [])
+               .controller('ScoreController', function($scope) {
+                $scope.scores = {
+                    q1: 0,
+                    q2: 0,
+                    q3: 0,
+                    q4: 0,
+                    q5: 0,
+                    q6: 0,
+                    q7: 0,
+                    q8: 0,
+                    q9: 0,
+                    q10: 0,
+                    q11: 0,
+                    q12: 0
+                };
+
+                $scope.calculateScore = function() {
+                    var totalScore = 0;
+                    for (var key in $scope.scores) {
+                        totalScore += parseInt($scope.scores[key]);
+                    }
+                    var averageScore = totalScore / Object.keys($scope.scores).length;
+                    var thresholds = {
+                        healthy: 3.5,
+                        mild: 3,
+                        moderate: 2.5,
+                        severe: 2
+                    };
+                    if (averageScore >= thresholds.healthy) {
+                        $scope.mentalHealthState = 'Healthy';
+                    } else if (averageScore >= thresholds.mild) {
+                        $scope.mentalHealthState = 'Mild concerns';
+                    } else if (averageScore >= thresholds.moderate) {
+                        $scope.mentalHealthState = 'Moderate concerns';
+                    } else {
+                        $scope.mentalHealthState = 'Severe concerns';
+                    }
+                    alert('Your mental health state is: ' + $scope.mentalHealthState);
+                };
+            });
+    </script>
+</body>
+</html>
